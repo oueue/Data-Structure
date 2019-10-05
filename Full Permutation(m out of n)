@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+void perm(int n, int m)
+{
+	int *s = new int[m];
+	int *a = new int[m];
+	int *b = new int[m];
+	int *flag = new int[n];
+	int top = -1;
+	int x = 0;
+	for (int i = 0; i < m; i++)b[i] = 0;
+	for (int i = 0; i < n; i++)flag[i] = 0;
+	while (b[0] != n||b[m-1]!=n)
+	{
+		if (top == 1 && s[top] == n-1)
+		{
+			//pop twice
+			flag[s[top--]] = 0;
+			flag[s[top--]] = 0;
+			b[x - 1] = 0;
+			for (int i = 0; i < m; i++) cout << a[i] << " ";
+			cout << endl;
+			x -= 2;
+		}
+		if (top == 1)
+		{
+			//pop once
+			flag[s[top--]] = 0;
+			for (int i = 0; i < m; i++) cout << a[i] << " ";
+			cout << endl;
+			x--;
+		}
+		if (flag[b[x]] == 0)
+		{
+			//push
+			s[++top] = b[x];
+			a[top] = s[top] + 1;
+			flag[b[x]] = 1;
+			b[x]++;
+			x++;
+		}
+		else
+		{
+			b[x]++;
+		}
+	}
+}
+int main()
+{
+	perm(3, 2);
+	system("pause");
+}
